@@ -13,7 +13,7 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let choice = prompt("Enter your choice (rock, paper, or scissors):").toLowerCase();
+    let choice = prompt("Enter your choice (rock, paper, or scissors):");
     return choice;
 }
 
@@ -44,9 +44,9 @@ for (let i = 0; i < 5; i++) {
 console.log(`Final Scores - You: ${humanScore}, Computer: ${computerScore}`);
 
 if (
-    humanScore < computerScore) {
+    humanScore > computerScore) {
     console.log("that's my boy you're qualified for olympics");
 }
 else {
-    console.log("don't cry comeon lets have another round (i can do this all day)")
+    console.log("don't cry come on let's have another round (i can do this all day)")
 }
