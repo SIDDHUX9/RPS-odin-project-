@@ -1,98 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Rock Paper Scissors</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 0 10px;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
 </head>
+<style>
+    body {
+        background-color: bisque;
+    }
+
+    button {
+        background-color: aqua;
+        height: 40px;
+        border-radius: 15px;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    button:hover {
+        background-color: lightgreen;
+    }
+
+    .buttons {
+        align-items: center;
+        text-align: center;
+        display: grid;
+        padding: 10px;
+        margin: 10px
+    }
+
+    h1 {
+        text-align: center;
+    }
+</style>
 
 <body>
     <h1>Rock Paper Scissors</h1>
-    <div>
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+    <div class="buttons">
+        <button id="rock"> Rock🪨</button>
+        <button id="paper"> Paper📜</button>
+        <button id="scissors">Scissors✌🏻</button>
+        <button id="reset" style="background-color: red;">click here to reset </button>
     </div>
 
-    <script>
-        let humanScore = 0;
-        let computerScore = 0;
+    <div id="result">SCORE | You - 0 , Computer - 0 </div>
 
-        function getComputerChoice() {
-            const compinput = Math.floor(Math.random() * 3);
-            if (compinput === 0) {
-                return "rock";
-            } else if (compinput === 1) {
-                return "paper";
-            } else {
-                return "scissors";
-            }
-        }
-
-        function playRound(HumanChoice, ComputerChoice) {
-            console.log(`You chose: ${HumanChoice}, Computer chose: ${ComputerChoice}`);
-
-            if (HumanChoice === ComputerChoice) {
-                console.log("It's a tie!");
-                return;
-            }
-            if (
-                (HumanChoice === "rock" && ComputerChoice === "scissors") ||
-                (HumanChoice === "scissors" && ComputerChoice === "paper") ||
-                (HumanChoice === "paper" && ComputerChoice === "rock")
-            ) {
-                humanScore++;
-                console.log("Congrats! You won🎉");
-            } else {
-                computerScore++;
-                console.log("You LOST");
-            }
-
-            // Show current scores in console
-            console.log(`Current scores - You: ${humanScore}, Computer: ${computerScore}`);
-
-            // Check for winner
-            if (humanScore >= 5) {
-                console.log("That's my boy! You're qualified for Olympics!");
-                resetGame();
-            } else if (computerScore >= 5) {
-                console.log("Don't cry come on let's have another round (I can do this all day)");
-                resetGame();
-            }
-        }
-
-        function resetGame() {
-            humanScore = 0;
-            computerScore = 0;
-            console.log("Game has been reset. New game started!");
-        }
-
-        // Button event listeners
-        document.getElementById('rock').addEventListener('click', () => {
-            playRound('rock', getComputerChoice());
-        });
-
-        document.getElementById('paper').addEventListener('click', () => {
-            playRound('paper', getComputerChoice());
-        });
-
-        document.getElementById('scissors').addEventListener('click', () => {
-            playRound('scissors', getComputerChoice());
-        });
-    </script>
 </body>
+<script>
+    let computerScore = 0;
+    let humanScore = 0;
+
+    function getComputerChoice() {
+        const compinput = Math.floor(Math.random() * 3);
+        if (compinput === 0) {
+            return ("rock");
+        } else if (compinput === 1) {
+            return ("paper");
+        } else {
+            return ("scissors");
+        }
+    }
+
+    function playRound(humanchoice, computerchoice) {
+        if (humanchoice === computerchoice) {
+            console.log("it's a tie");
+            updateResult("It's a Tie");
+            return;
+        }
+        else if (
+            (humanchoice === "rock" && computerchoice === "scissors") ||
+            (humanchoice === "paper" && computerchoice === "rock") ||
+            (humanchoice === "scissors" && computerchoice === "paper")
+        ) {
+            console.log("you won");
+            humanScore++;
+            updateResult(`${humanchoice} beats ${computerchoice} you won 🎉`);
+        }
+        else {
+            computerScore++;
+            console.log("computer won");
+            updateResult(`${computerchoice} beats ${humanchoice} you lose❌`);
+        }
+
+        console.log(`Current scores - You: ${humanScore}, Computer: ${computerScore}`);
+    }
+
+    document.getElementById('rock').addEventListener('click', () => {
+        playRound('rock', getComputerChoice());
+        console.log(ComputerChoice());
+    });
+    document.getElementById('paper').addEventListener('click', () => {
+        playRound('paper', getComputerChoice());
+
+    });
+    document.getElementById('scissors').addEventListener('click', () => {
+        playRound('scissors', getComputerChoice());
+
+    });
+
+
+    const resultDiv = document.getElementById("result");
+    function updateResult(message) {
+        resultDiv.textContent = `${message} | Current scores - You: ${humanScore}, Computer: ${computerScore}`;
+    }
+
+    document.getElementById("reset").addEventListener('click', () => {
+        humanScore = 0;
+        computerScore = 0;
+        updateResult("🆕Game has been reset")
+    });
+
+
+</script>
 
 </html>
