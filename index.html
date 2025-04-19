@@ -1,24 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <script src="script.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<style>
-    * {
-        background: rgb(75, 73, 73)
-    }
-</style>
 
 <body>
-    <h1>Open Console to play Rock Paper and Scissors</h1>
-    <h2>🪨 , 📃 and 👯</h2>
-</body>
+    <h1>Rock Paper Scissors</h1>
+    <div>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
 
-<script>
-</script>
+    <script>
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function getComputerChoice() {
+            const compinput = Math.floor(Math.random() * 3);
+            if (compinput === 0) {
+                return "rock";
+            } else if (compinput === 1) {
+                return "paper";
+            } else {
+                return "scissors";
+            }
+        }
+
+        function playRound(HumanChoice, ComputerChoice) {
+            console.log(`You chose: ${HumanChoice}, Computer chose: ${ComputerChoice}`);
+
+            if (HumanChoice === ComputerChoice) {
+                console.log("It's a tie!");
+                return;
+            }
+            if (
+                (HumanChoice === "rock" && ComputerChoice === "scissors") ||
+                (HumanChoice === "scissors" && ComputerChoice === "paper") ||
+                (HumanChoice === "paper" && ComputerChoice === "rock")
+            ) {
+                humanScore++;
+                console.log("Congrats! You won🎉");
+            } else {
+                computerScore++;
+                console.log("You LOST");
+            }
+
+            // Show current scores in console
+            console.log(`Current scores - You: ${humanScore}, Computer: ${computerScore}`);
+
+            // Check for winner
+            if (humanScore >= 5) {
+                console.log("That's my boy! You're qualified for Olympics!");
+                resetGame();
+            } else if (computerScore >= 5) {
+                console.log("Don't cry come on let's have another round (I can do this all day)");
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            humanScore = 0;
+            computerScore = 0;
+            console.log("Game has been reset. New game started!");
+        }
+
+        // Button event listeners
+        document.getElementById('rock').addEventListener('click', () => {
+            playRound('rock', getComputerChoice());
+        });
+
+        document.getElementById('paper').addEventListener('click', () => {
+            playRound('paper', getComputerChoice());
+        });
+
+        document.getElementById('scissors').addEventListener('click', () => {
+            playRound('scissors', getComputerChoice());
+        });
+    </script>
+</body>
 
 </html>

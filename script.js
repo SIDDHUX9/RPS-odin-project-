@@ -12,10 +12,17 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt("Enter your choice (rock, paper, or scissors):");
-    return choice;
-}
+document.getElementById('rock').addEventListener('click', () => {
+    playRound('rock', getComputerChoice());
+});
+
+document.getElementById('paper').addEventListener('click', () => {
+    playRound('paper', getComputerChoice());
+});
+
+document.getElementById('scissors').addEventListener('click', () => {
+    playRound('scissors', getComputerChoice());
+});
 
 function playRound(HumanChoice, ComputerChoice) {
     if (HumanChoice === ComputerChoice) {
@@ -35,9 +42,7 @@ function playRound(HumanChoice, ComputerChoice) {
     }
 }
 
-for (let i = 0; i < 5; i++) {
-    playRound(getHumanChoice(), getComputerChoice());
-}
+
 
 console.log(`Final Scores - You: ${humanScore}, Computer: ${computerScore}`);
 
